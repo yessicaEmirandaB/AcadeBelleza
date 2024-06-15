@@ -16,8 +16,6 @@ class AlumnoscursosController extends Controller
      */
     /* public function index(Request $request)
     {
-        
-
         $detalles = Alumnos::join('alumnoscursos', 'alumnos.id', '=', 'alumnoscursos.Alumnos_id')
             ->join('cursos', 'cursos.id', '=', 'alumnoscursos.cursos_id')
             ->select('alumnos.*', 'cursos.*', 'alumnoscursos.*')->get();
@@ -40,15 +38,23 @@ class AlumnoscursosController extends Controller
 
         return view('AlumnoCurso.index', compact('detalles'));
     }
-    public function pdf()
+    public function pdf(Request $request)
     {
+        $search = $request->input('search'); // Obtén el valor del campo de búsqueda
+
         $detalles = Alumnos::join('alumnoscursos', 'alumnos.id', '=', 'alumnoscursos.Alumnos_id')
             ->join('cursos', 'cursos.id', '=', 'alumnoscursos.cursos_id')
-            ->select('alumnos.*', 'cursos.*', 'alumnoscursos.*')->get();
-        
+            ->select('alumnos.*', 'cursos.*', 'alumnoscursos.*')
+            ->when($search, function ($query, $search) {
+                return $query->where('alumnos.Nombres', 'like', '%' . $search . '%')
+                    ->orWhere('alumnos.Apellidos', 'like', '%' . $search . '%')
+                    ->orWhere('cursos.nombrecurso', 'like', '%' . $search . '%');
+            })
+            ->get();
+
         $pdf = Pdf::loadView('AlumnoCurso.pdf', compact('detalles'));
         return $pdf->stream();
-        // return $pdf->download('invoice.pdf');   PARA QUE HAGA UNA DESCARGA DIRECTA
+        // return $pdf->download('alumnos_cursos.pdf'); // Para descargar directamente
     }
 
     /**

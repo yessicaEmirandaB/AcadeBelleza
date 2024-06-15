@@ -6,19 +6,27 @@ use App\Models\Maestros;
 use App\Models\cursos;
 use App\Models\Detalle_Curso_Maestro;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DetalleCursoMaestroController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $search = $request->input('search');
         $detalles = Maestros::join('detalle__curso__maestros', 'maestros.id', '=', 'detalle__curso__maestros.Maestros_id')
             ->join('cursos', 'cursos.id', '=', 'detalle__curso__maestros.cursos_id')
-            ->select('maestros.*', 'cursos.*', 'detalle__curso__maestros.*')->get();
-        // dd($detalles);
+            ->select('maestros.*', 'cursos.*', 'detalle__curso__maestros.*')
+            ->when($search, function ($query, $search) {
+                return $query->where('maestros.nombres', 'like', '%' . $search . '%')
+                    ->orWhere('maestros.apellidos', 'like', '%' . $search . '%')
+                    ->orWhere('cursos.nombrecurso', 'like', '%' . $search . '%');
+            })
+            ->paginate(3); // Pagina los resultados
+
         return view('MaestroCurso.index', compact('detalles'));
 
        /* $detalles = Detalle_Curso_Maestro::with('maestros','cursos')->get();
@@ -27,6 +35,24 @@ class DetalleCursoMaestroController extends Controller
 
 
         
+    }
+    public function pdf(Request $request)
+    {
+        $search = $request->input('search'); // Obtén el valor del campo de búsqueda
+
+        $detalles = Maestros::join('detalle__curso__maestros', 'maestros.id', '=', 'detalle__curso__maestros.Maestros_id')
+            ->join('cursos', 'cursos.id', '=', 'detalle__curso__maestros.cursos_id')
+            ->select('maestros.*', 'cursos.*', 'detalle__curso__maestros.*')
+            ->when($search, function ($query, $search) {
+                return $query->where('maestros.nombres', 'like', '%' . $search . '%')
+                    ->orWhere('maestros.apellidos', 'like', '%' . $search . '%')
+                    ->orWhere('cursos.nombrecurso', 'like', '%' . $search . '%');
+            })
+            ->get();
+
+        $pdf = Pdf::loadView('MaestroCurso.pdf', compact('detalles'));
+        return $pdf->stream();
+        // return $pdf->download('alumnos_cursos.pdf'); // Para descargar directamente
     }
 
     /**

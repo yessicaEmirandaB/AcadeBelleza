@@ -6,30 +6,28 @@ use App\Models\Aulas;
 use App\Models\Materias;
 use App\Models\Horarios;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class HorariosController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-       /*  $detalles = Materias::join('horarios', 'materias.id', '=', 'horarios.Materias_id')
+        /*  $detalles = Materias::join('horarios', 'materias.id', '=', 'horarios.Materias_id')
             ->join('aulas', 'aulas.id', '=', 'horarios.Aulas_id')
             ->select('materias.*', 'aulas.*', 'horarios.*')->get();
         // dd($detalles);
         return view('Horario.index', compact('detalles'));*/
-       
-       
-       
-        $detalles = Horarios::with('aulas','materias')->get();
-       // dd($detalles);
+
+        $detalles = Horarios::with('aulas', 'materias')->get();
+            // dd($detalles);
+
         return view('Horario.index', compact('detalles'));
-
-        
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -40,9 +38,9 @@ class HorariosController extends Controller
         $materias = Materias::all();
         return view('Horario.create', compact('aulas', 'materias'));
 
-       // $aula = Aulas::all();
-       // $materias = Materias::all();
-       // return view('Horario.create', ['aula' => $aula, 'materias' => $materias]);
+        // $aula = Aulas::all();
+        // $materias = Materias::all();
+        // return view('Horario.create', ['aula' => $aula, 'materias' => $materias]);
     }
 
     /**
@@ -51,10 +49,10 @@ class HorariosController extends Controller
     public function store(Request $request)
     {
         //
-       // $horarios = new Horarios($request->all());
-       // $horarios->save();
+        // $horarios = new Horarios($request->all());
+        // $horarios->save();
         //foreach ($request->Aulas_id as $Aulas_id) {
-          //  $horarios->aulas()->attach($Aulas_id);
+        //  $horarios->aulas()->attach($Aulas_id);
         //}
         //return redirect()->action([HorariosController::class, 'index']);
 
@@ -65,14 +63,14 @@ class HorariosController extends Controller
             'HoraFinal' => 'required|string|max:20',
         ]);
 
-      //  Horarios::create($request->all());
+        //  Horarios::create($request->all());
 
-      //  return redirect()->action([HorariosController::class, 'index']);
+        //  return redirect()->action([HorariosController::class, 'index']);
 
         $datosMateria = request()->except('_token');
         Horarios::insert($datosMateria);
         //return response()->json($datosAlumno);
-        return redirect('Horario')->with('mensaje','Nueva materia creada con exito');
+        return redirect('Horario')->with('mensaje', 'Nueva materia creada con exito');
     }
 
     /**
@@ -98,7 +96,7 @@ class HorariosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         //
         $request->validate([

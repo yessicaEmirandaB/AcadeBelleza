@@ -48,11 +48,13 @@ Auth::routes(['reset'=>false]);
 
 Route::get('AlumnoCurso/pdf',[ControllersAlumnoscursosController::class, 'pdf'] )->name('AlumnoCurso.pdf');
 Route::resource('/AlumnoCurso', ControllersAlumnoscursosController::class);
+Route::get('MaestroCurso/pdf',[DetalleCursoMaestroController::class, 'pdf'] )->name('MaestroCurso.pdf');
 Route::resource('/MaestroCurso', DetalleCursoMaestroController::class);
 
 Route::resource('/Maestro', MaestrosController::class);
 Route::resource('/Curso', CursosController::class);
 Route::resource('/Materia', MateriasController::class);
+Route::get('Horario/pdf',[HorariosController::class, 'pdf'] )->name('Horario.pdf');
 Route::resource('/Horario', HorariosController::class);
 Route::resource('/Aula', AulasController::class);
 

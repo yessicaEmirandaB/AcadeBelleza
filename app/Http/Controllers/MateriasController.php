@@ -93,16 +93,7 @@ class MateriasController extends Controller
         $materias->save();
         return redirect('Materia')->with('mensaje','La materia fue modificado con exito');
 
-       // return view("Materia.message",['msg'=>"Registro modificado"]);
-
-       // $this->validate($request,$campos,$mensaje);
-        //
-        //$datosMaterias = request()->except(['_token','_method']);
-        //Materias::where('id','=',$id)->update($datosMaterias);
-
-        // $materias=Materias::findOrFail($id);
-         //return view('Materia.edit',compact('materias'));
-       //return redirect('Curso')->with('mensaje','El curso fue modificado');
+ 
     }
 
     /**

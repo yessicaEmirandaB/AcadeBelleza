@@ -14,16 +14,16 @@
     <div class="card-header d-inline-flex">
         <a href="{{url('AlumnoCurso/create') }}" class="btn btn-success">Crear</a>
         &nbsp;
-        <a href="{{url('AlumnoCurso/pdf') }}" class="btn btn-success" target="_blank">PDF</a>
+        <!--  <a href="{{url('AlumnoCurso/pdf') }}" class="btn btn-success" target="_blank">PDF</a>  Enlaces de paginación -->
+        <a href="{{ url('AlumnoCurso/pdf?search=' . request('search')) }}" class="btn btn-success" target="_blank">PDF</a>
     </div>
     <br>
-
-
-    <form class="d-flex" method="GET" action="{{ url('AlumnoCurso') }}">
-        <input name="search" class="form-control me-2" type="search" placeholder="Escribe el nombre" aria-label="Search" value="{{ request('search') }}">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-    </form>
-
+    <div class="card mt-3">
+        <form class="d-flex" method="GET" action="{{ url('AlumnoCurso') }}">
+            <input name="search" class="form-control me-2" type="search" placeholder="Escribe el nombre" aria-label="Search" value="{{ request('search') }}">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+    </div>
     <div class="container mt-4">
         <table class="table table-striped table-bordered">
             <thead class="table-danger">
@@ -38,7 +38,7 @@
 
                 @foreach($detalles as $key => $detalle)
                 <tr>
-                    <td>{{$key}}</td>
+                    <td>{{$key + 1}}</td>
                     <td> {{$detalle->Nombres}} {{$detalle->Apellidos}}</td>
                     <td> {{$detalle->nombrecurso}} </td>
                     <td>

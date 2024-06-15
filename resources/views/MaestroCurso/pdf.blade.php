@@ -19,26 +19,27 @@
 
 <body>
     <img src="imagenes/logo.jpg" alt="" width="50px" height="50px">
-    <h1 class="text-center">REPORTE DE ALUMNOS Y SUS CURSOS</h1> <br>
+    <h1 class="text-center">REPORTE DE MAESTROS Y SUS CURSOS</h1> <br>
     <table class="table table-striped table-bordered">
-        <thead class="table-warning">
-            <tr>
-                <th>#</th>
-                <th>Alumno</th>
-                <th>Curso</th>
-            </tr>
-        </thead>
-        <tbody>
+            <thead class="table-warning">
+                <tr>
+                    <th>#</th>
+                    <th>Maestro</th>
+                    <th>cursos</th>
+                </tr>
+            </thead>
+            <tbody>
 
-            @foreach($detalles as $key => $detalle)
-            <tr>
-                <td>{{$key + 1}}</td>
-                <td> {{$detalle->Nombres}} {{$detalle->Apellidos}}</td>
-                <td> {{$detalle->nombrecurso}} </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+                @foreach($detalles as $key => $detalle)
+
+                <tr>
+                    <td>{{$key +1}}</td>
+                    <td>{{$detalle->nombres}}</td>
+                    <td>{{$detalle->nombrecurso}}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
 </body>
 
 </html>
