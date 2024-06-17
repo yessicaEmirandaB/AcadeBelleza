@@ -11,11 +11,11 @@
 @endif
 
 <div class="form-group">
-<label for="nombrecurso"> nombrecurso </label>
-<input type="text" class="form-control" name="nombrecurso" value="{{isset($cursos->nombrecurso)?$cursos->nombrecurso:old('nombrecurso')}}" id="nombrecurso">
+<label for="nombrecurso"> Nombre del Curso </label>
+<input type="text" class="form-control" name="nombrecurso" 
+     value="{{isset($cursos->nombrecurso)?$cursos->nombrecurso:old('nombrecurso')}}" id="nombrecurso">
 <br>
 </div>
-
 <input class="btn btn-success" type="submit" value="{{ $modo }} datos">
 
 <a class="btn btn-primary" href="{{url('Curso/')}}">Regresar</a>

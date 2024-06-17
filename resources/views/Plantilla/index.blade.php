@@ -73,28 +73,28 @@
     <div class="box-container">
 
         <div class="box">
-            <img src="img/imagen4.jpg" alt="">
+            <img src="img/maquiprofesi.jpg" alt="">
             <div class="content">
                 <h3>Maquillaje profesional</h3>
             </div>
         </div>
 
         <div class="box">
-            <img src="img/imagen4.jpg" alt="">
+            <img src="img/automaquillaje.jpg" alt="">
             <div class="content">
                 <h3>Automaquillaje </h3>
             </div>
         </div>
 
         <div class="box">
-            <img src="img/imagen4.jpg" alt="">
+            <img src="img/peinados.jpg" alt="">
             <div class="content">
                 <h3>Peinados</h3>
             </div>
         </div>
 
         <div class="box">
-            <img src="img/imagen4.jpg" alt="">
+            <img src="img/Bucles2.jpg" alt="">
             <div class="content">
                 <h3>Planchado,cepillado y Bucles</h3>
             </div>

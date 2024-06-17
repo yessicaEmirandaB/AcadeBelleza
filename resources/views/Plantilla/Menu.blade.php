@@ -55,12 +55,12 @@
         <div class="box-container">
 
             <div class="box">
-                <h3> AQUI DEBE IR EL LOGO </h3>
+                <h3> MAKEUP MIRANDA </h3>
                 <p>Academia de cursos de belleza</p>
                 <div class="share">
-                    <a href="#" class="fab fa-facebook-f"></a>
+                    <a href="https://www.facebook.com/share/GpkVrf46YhikgngS/?mibextid=qi2Omg" class="fab fa-facebook-f"></a>
 
-                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="https://www.instagram.com/makeup_miranda.y?igsh=MWx5eDNyNmhqaWE5aQ==" class="fab fa-instagram"></a>
 
                 </div>
             </div>

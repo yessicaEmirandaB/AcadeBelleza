@@ -5,24 +5,50 @@ namespace App\Http\Controllers;
 use App\Models\Materias;
 use App\Models\cursos;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MateriasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    /*public function index(Request $request)
+    {
+        $materia=Materias::all();
+
+        return view('Materia.index',compact('materia'));
+    }*/
     public function index(Request $request)
     {
-        $materia=Materias::select('*')->orderBy('id','ASC');
-        $limit=(isset($request->limit))?$request->limit:10;
+        $search = $request->input('search'); // Obtén el valor del campo de búsqueda
 
-        if(isset($request->search)) {
-           $materia=$materia->where('id','like','%'.$request->search.'%')
-           ->orWhere('cursos_id','like','%'.$request->search.'%')
-           ->orWhere('nombremateria','like','%'.$request->search.'%');
-        }
-       $materia=$materia->paginate($limit)->appends($request->all());
-        return view('Materia.index',['materia'=>$materia]);
+        $materia = Materias::with('cursos')
+            ->when($search, function ($query, $search) {
+                return $query->where('nombremateria', 'like', '%' . $search . '%')
+                    ->orWhereHas('cursos', function ($query) use ($search) {
+                        $query->where('nombrecurso', 'like', '%' . $search . '%');
+                    });
+            })
+            ->paginate(10); // Pagina los resultados
+
+        return view('Materia.index', compact('materia'));
+    }
+    public function pdf(Request $request)
+    {
+        $search = $request->input('search'); // Obtén el valor del campo de búsqueda
+
+        $materia = Materias::with('cursos')
+            ->when($search, function ($query, $search) {
+                return $query->where('nombremateria', 'like', '%' . $search . '%')
+                    ->orWhereHas('cursos', function ($query) use ($search) {
+                        $query->where('nombrecurso', 'like', '%' . $search . '%');
+                    });
+            })
+            ->get();
+
+        $pdf = Pdf::loadView('Materia.pdf', compact('materia'));
+        return $pdf->stream();
+        // return $pdf->download('alumnos_cursos.pdf'); // Para descargar directamente
     }
 
     /**
@@ -30,8 +56,7 @@ class MateriasController extends Controller
      */
     public function create()
     {
-
-        return view('Materia.create',['cursos'=>cursos::all()]);
+        return view('Materia.create', ['cursos' => cursos::all()]);
     }
 
     /**
@@ -39,21 +64,20 @@ class MateriasController extends Controller
      */
     public function store(Request $request)
     {
-        $campos=[
-            'cursos_id'=>'required|string|max:100',
-            'nombremateria'=>'required|string|max:100',
-         ];
-         $mensaje=[
-            'required'=>'El :attribute es requerido',
+        $campos = [
+            'cursos_id' => 'required|string|max:100',
+            'nombremateria' => 'required|string|max:100',
         ];
-        
-        $this->validate($request,$campos,$mensaje);
+        $mensaje = [
+            'required' => 'El :attribute es requerido',
+        ];
+
+        $this->validate($request, $campos, $mensaje);
 
         $datosMateria = request()->except('_token');
         Materias::insert($datosMateria);
         //return response()->json($datosAlumno);
-        return redirect('Materia')->with('mensaje','Nueva materia creada con exito');
-    
+        return redirect('Materia')->with('mensaje', 'Nueva materia creada con exito');
     }
 
     /**
@@ -69,31 +93,29 @@ class MateriasController extends Controller
      */
     public function edit($id)
     {
-        $materias=Materias::findOrFail($id);
+        $materias = Materias::findOrFail($id);
 
-        return view('Materia.edit',['materias'=>$materias,'cursos'=>cursos::all()]);
+        return view('Materia.edit', ['materias' => $materias, 'cursos' => cursos::all()]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $campos=[
-            'cursos_id'=>'required',
-            'nombremateria'=>'required|string|max:100',
-         ];
-         $mensaje=[
-            'required'=>'El :attribute es requerido',
+        $campos = [
+            'cursos_id' => 'required',
+            'nombremateria' => 'required|string|max:100',
         ];
-        
-        $materias= Materias::find($id);
-        $materias->cursos_id =$request->input('cursos_id');
-        $materias->nombremateria =$request->input('nombremateria');
-        $materias->save();
-        return redirect('Materia')->with('mensaje','La materia fue modificado con exito');
+        $mensaje = [
+            'required' => 'El :attribute es requerido',
+        ];
 
- 
+        $materias = Materias::find($id);
+        $materias->cursos_id = $request->input('cursos_id');
+        $materias->nombremateria = $request->input('nombremateria');
+        $materias->save();
+        return redirect('Materia')->with('mensaje', 'La materia fue modificado con exito');
     }
 
     /**
@@ -102,8 +124,8 @@ class MateriasController extends Controller
     public function destroy($id)
     {
         //
-         Materias::destroy($id);
-        
-        return redirect('Materia')->with('mensaje','El curso fue borrado correctamente');
+        Materias::destroy($id);
+
+        return redirect('Materia')->with('mensaje', 'El curso fue borrado correctamente');
     }
 }

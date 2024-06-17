@@ -21,11 +21,40 @@ class HorariosController extends Controller
             ->select('materias.*', 'aulas.*', 'horarios.*')->get();
         // dd($detalles);
         return view('Horario.index', compact('detalles'));*/
+        $search = $request->input('search');
 
-        $detalles = Horarios::with('aulas', 'materias')->get();
-            // dd($detalles);
+        $detalles = Horarios::with('aulas', 'materias')
+
+         ->when($search, function ($query, $search) {
+            return $query->whereHas('materias', function ($query) use ($search) {
+                    $query->where('nombremateria', 'like', '%' . $search . '%');
+                })
+                ->orWhereHas('aulas', function ($query) use ($search) {
+                    $query->where('NumAula', 'like', '%' . $search . '%');
+                });
+        })
+        ->paginate(3); // Pagina los resultados
 
         return view('Horario.index', compact('detalles'));
+    }
+    public function pdf(Request $request)
+    {
+        $search = $request->input('search'); // Obtén el valor del campo de búsqueda
+
+        $detalles = Horarios::with('aulas', 'materias')
+        ->when($search, function ($query, $search) {
+            return $query->whereHas('materias', function ($query) use ($search) {
+                    $query->where('nombremateria', 'like', '%' . $search . '%');
+                })
+                ->orWhereHas('aulas', function ($query) use ($search) {
+                    $query->where('NumAula', 'like', '%' . $search . '%');
+                });
+            })
+            ->get();
+
+        $pdf = Pdf::loadView('Horario.pdf', compact('detalles'));
+        return $pdf->stream();
+        // return $pdf->download('alumnos_cursos.pdf'); // Para descargar directamente
     }
     
     /**

@@ -56,9 +56,10 @@
             </div>
             <div class="content">
                 <h3 class="title">MISIÓN</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    FKNODFKNGDFKNBDFKNBOKDNFPKBNKDFNB
-                    LDKBNDFKNBDFKNBKDFNBKDFNBKNDFKBN
+                <p>BRINDAR LAS HERRAMIENTAS NECESARIAS PARA EL DESARROLLO HUMANO Y LABORAL,
+                     CON UNA CALIDAD EN LA ENSEÑANZA A NIVEL PROFESIONAL, POTENCIANDO LAS 
+                     HABILIDADES Y VIRTUDES DE LOS ALUMNOS, FORMANDO PROFESIONALES DE LA 
+                     BELLEZA.
                 </p>
             </div>
         </div>
@@ -69,9 +70,8 @@
             </div>
             <div class="content">
                 <h3 class="title">VISIÓN</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    FKNODFKNGDFKNBDFKNBOKDNFPKBNKDFNB
-                    LDKBNDFKNBDFKNBKDFNBKDFNBKNDFKBN
+                <p>CREAR UN CONCEPTO DIFERENTE EN ENSEÑANZA PROFESIONAL DE LA BELLEZA 
+                    Y CONSOLIDARNOS COMO UN SINONIMO DE EXCELENCIA ANTE LA SOCIEDAD.
                 </p>
             </div>
         </div>

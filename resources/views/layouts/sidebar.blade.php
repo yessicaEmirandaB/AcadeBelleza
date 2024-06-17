@@ -3,103 +3,134 @@
 
         <nav id="sidebar">
             <div class="user-p">
-                <img src="imagenes/logo.jpg">
+                <img src="{{ asset('imagenes/logo.jpg') }}" alt="Logo">
             </div>
 
             <ul class="list-unstyled components">
-
-                <!-- Page Content  
-                <li class="active">
-                    <a href="/" data-bs-toggle="collapse" data-bs-target="#homeSubmenu" aria-expanded="false" class="dropdown-toggle">
+                @can('ver-alumnos')
+                <li>
+                    <a href="/" data-bs-toggle="collapse" data-bs-target="#homeSubmenuInscripcion" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-graduation-cap"></i>
-                        <b>Asignacion</b>
+                        <b>INSCRIPCIÓN</b>
                     </a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-
-                        <li>
-                            <a href="#">Home 1</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenuInscripcion">
+                        @can('ver-alumnos')
+                        <li class="{{'Alumno'==Request::is('Alumno*')?'active':''}}">
+                            <a href="{{ route('Alumno.index')}}">
+                                <i class="fa fa-graduation-cap"></i>
+                                <b>Alumnos</b>
+                            </a>
                         </li>
-                        <li>
-                            <a href="#">Home 2</a>
+                        @endcan
+                        @can('ver-alumnos')
+                        <li class="{{'AlumnoCurso'==Request::is('AlumnoCurso*')?'active':''}}">
+                            <a href="{{ route('AlumnoCurso.index')}}">
+                                <i class="fa fa-book"></i>
+                                <b>AlumnoCurso</b>
+                            </a>
                         </li>
-                        <li>
-                            <a href="#">Home 3</a>
+                        @endcan
+                        @can('ver-alumnos')
+                        <li class="{{'Horario'==Request::is('Horario*')?'active':''}}">
+                            <a href="{{ route('Horario.index')}}">
+                                <i class="fa fa-book"></i>
+                                <b>Horario</b>
+                            </a>
                         </li>
+                        @endcan
                     </ul>
-                </li>-->
-
+                </li>
+                @endcan
                 @can('ver-alumnos')
-                <li class="{{'Alumno'==Request::is('Alumno*')?'active':''}}">
-                    <a href="{{ route('Alumno.index')}}">
+                <li>
+                    <a href="#" data-bs-toggle="collapse" data-bs-target="#homeSubmenuParametro" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-graduation-cap"></i>
-                        <b>Alumnos</b>
+                        <b>PARAMETRO</b>
                     </a>
-                </li>
-                @endcan
-                @can('ver-alumnos')
-                <li class="{{'AlumnoCurso'==Request::is('AlumnoCurso*')?'active':''}}">
-                    <a href="{{ route('AlumnoCurso.index')}}">
-                        <i class="fa fa-book"></i>
-                        <b>AlumnoCurso</b>
-                    </a>
-                </li>
-                @endcan
-                @can('ver-alumnos')
-                <li class="{{'Maestro'==Request::is('Maestro*')?'active':''}}">
-                    <a href="{{ route('Maestro.index')}}">
-                        <i class='fas fa-chalkboard-teacher'></i>
-                        <b>Maestros</b>
-                    </a>
-                </li>
-                @endcan
-                @can('ver-alumnos')
-                <li class="{{'MaestroCurso'==Request::is('MaestroCurso*')?'active':''}}">
-                    <a href="{{ route('MaestroCurso.index')}}">
-                        <i class='fas fa-chalkboard-teacher'></i>
-                        <b>MaestroCurso</b>
-                    </a>
-                </li>
-                @endcan
-                @can('ver-alumnos')
-                <li class="{{'Curso'==Request::is('Curso*')?'active':''}}">
-                    <a href="{{ route('Curso.index')}}">
-                        <i class="fa fa-book"></i>
-                        <b>Curso</b>
-                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenuParametro">
+                        @can('ver-alumnos')
+                        <li class="{{'Alumno'==Request::is('Alumno*')?'active':''}}">
+                            <a href="{{ route('Alumno.index')}}">
+                                <i class="fa fa-graduation-cap"></i>
+                                <b>Alumnos</b>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('ver-alumnos')
+                        <li class="{{'AlumnoCurso'==Request::is('AlumnoCurso*')?'active':''}}">
+                            <a href="{{ route('AlumnoCurso.index')}}">
+                                <i class="fa fa-book"></i>
+                                <b>AlumnoCurso</b>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('ver-alumnos')
+                        <li class="{{'Maestro'==Request::is('Maestro*')?'active':''}}">
+                            <a href="{{ route('Maestro.index')}}">
+                                <i class='fas fa-chalkboard-teacher'></i>
+                                <b>Maestros</b>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('ver-alumnos')
+                        <li class="{{'MaestroCurso'==Request::is('MaestroCurso*')?'active':''}}">
+                            <a href="{{ route('MaestroCurso.index')}}">
+                                <i class='fas fa-chalkboard-teacher'></i>
+                                <b>MaestroCurso</b>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('ver-alumnos')
+                        <li class="{{'Curso'==Request::is('Curso*')?'active':''}}">
+                            <a href="{{ route('Curso.index')}}">
+                                <i class="fa fa-book"></i>
+                                <b>Curso</b>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('ver-alumnos')
+                        <li class="{{'Materia'==Request::is('Materia*')?'active':''}}">
+                            <a href="{{ route('Materia.index')}}">
+                                <i class="fa fa-book"></i>
+                                <b>Materias</b>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('ver-alumnos')
+                        <li class="{{'DuracionCurso'==Request::is('DuracionCurso*')?'active':''}}">
+                            <a href="{{ route('DuracionCurso.index')}}">
+                                <i class="fa fa-book"></i>
+                                <b>Duración Cursos</b>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('ver-alumnos')
+                        <li class="{{'Aula'==Request::is('Aula*')?'active':''}}">
+                            <a href="{{ route('Aula.index')}}">
+                                <i class="fa fa-book"></i>
+                                <b>Aulas</b>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('ver-alumnos')
+                        <li class="{{'Horario'==Request::is('Horario*')?'active':''}}">
+                            <a href="{{ route('Horario.index')}}">
+                                <i class="fa fa-book"></i>
+                                <b>Horario</b>
+                            </a>
+                        </li>
+                        @endcan
+                    </ul>
                 </li>
                 @endcan
                
                 @can('ver-alumnos')
-                <li class="{{'Materia'==Request::is('Materia*')?'active':''}}">
-                    <a href="{{ route('Materia.index')}}">
-                        <i class="fa fa-book"></i>
-                        <b>Materias</b>
-                    </a>
-                </li>
-                @endcan
-                @can('ver-alumnos')
-                <li class="{{'Aula'==Request::is('Aula*')?'active':''}}">
-                    <a href="{{ route('Aula.index')}}">
-                        <i class="fa fa-book"></i>
-                        <b>Aulas</b>
-                    </a>
-                </li>
-                @endcan
-                @can('ver-alumnos')
-                <li class="{{'Horario'==Request::is('Horario*')?'active':''}}">
-                    <a href="{{ route('Horario.index')}}">
-                        <i class="fa fa-book"></i>
-                        <b>Horario</b>
-                    </a>
-                </li>
-                @endcan
-                @can('ver-alumnos')
-                <li class="nav-link">
-                    <a href="/" data-bs-toggle="collapse" data-bs-target="#homeSubmenu" aria-expanded="false" class="dropdown-toggle">
+                <li>
+                    <a href="/" data-bs-toggle="collapse" data-bs-target="#homeSubmenuAdministracion" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-graduation-cap"></i>
                         <b>ADMINISTRACIÓN</b>
                     </a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <ul class="collapse list-unstyled" id="homeSubmenuAdministracion">
                         @can('ver-alumnos')
                         <li class="{{'usuarios'==Request::is('usuarios*')?'active':''}}">
                             <a href="{{ route('usuarios.index')}}">

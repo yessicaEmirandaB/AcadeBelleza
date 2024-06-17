@@ -5,7 +5,7 @@
 <section class="materiaD" id="materiaD">
     <div class="row">
         <div class="image">
-            <img src="img/imagen3.jpg" alt="">
+            <img src="img/maquipro.jpg" alt="">
         </div>
         <div class="content">
             <h3 class="title">Maquillaje Profesional</h3>
@@ -52,7 +52,7 @@
 <section class="materiaD" id="materiaD">
     <div class="row">
         <div class="image">
-            <img src="img/imagen3.jpg" alt="">
+            <img src="img/peinados2.jpg" alt="">
         </div>
         <div class="content">
             <h3 class="title">Peinados</h3>

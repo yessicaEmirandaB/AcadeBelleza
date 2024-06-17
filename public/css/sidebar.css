@@ -182,18 +182,22 @@ a.download {
 
 a.article,
 a.article:hover {
-    background: #6d7fcc !important;
+    background: #ddc47d !important;
     color: #fff !important;
 }
 /*PHOTO*/
 .user-p {
-	text-align: center;
-	padding-left: 10px;
-	padding-top: 25px;
+   /* padding: var(--padding) 0;*/
+   text-align: center;
+   margin-top: 20px;
+   margin-bottom: 20px;
+   transition: margin-left 0.3s ease;
 }
 .user-p img {
-	width: 100px;
-	border-radius: 50%;
+	width: 50%; /* Tamaño del logo cuando el sidebar está expandido */
+    height: auto;
+    border-radius: 50%; /* Redondea los bordes de la imagen */
+    transition: all 0.3s;
 }
 .user-p h4 {
 	color: #ccc;

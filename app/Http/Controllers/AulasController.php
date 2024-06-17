@@ -12,16 +12,17 @@ class AulasController extends Controller
      */
     public function index(Request $request)
     {
-        $aula=Aulas::select('*')->orderBy('id','ASC');
-        $limit=(isset($request->limit))?$request->limit:10;
-
-        if(isset($request->search)) {
-           $aula=$aula->where('id','like','%'.$request->search.'%')
-           ->orWhere('NumAula','like','%'.$request->search.'%')
-           ->orWhere('Capacidad','like','%'.$request->search.'%');
+        $search = $request->input('search'); 
+        $aula = Aulas::orderBy('id', 'ASC');
+        if ($search) {
+            $aula->where(function ($query) use ($search) {
+                $query->where('id', 'like', '%' . $search . '%')
+                    ->orWhere('NumAula', 'like', '%' . $search . '%')
+                    ->orWhere('Capacidad', 'like', '%' . $search . '%');
+            });
         }
-       $aula=$aula->paginate($limit)->appends($request->all());
-        return view('Aula.index',['aula'=>$aula]);
+        $aula = $aula->get(); 
+        return view('Aula.index', compact('aula'));
     }
 
     /**

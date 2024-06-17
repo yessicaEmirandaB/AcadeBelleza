@@ -7,6 +7,7 @@ use App\Models\Maestros;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class MaestrosController extends Controller
 {
@@ -15,23 +16,46 @@ class MaestrosController extends Controller
      */
     public function index(Request $request)
     {
-        $maestro=Maestros::select('*')->orderBy('id','ASC');
-        $limit=(isset($request->limit))?$request->limit:10;
-
-        if(isset($request->search)) {
-           $maestro=$maestro->where('id','like','%'.$request->search.'%')
-           ->orWhere('apellidos','like','%'.$request->search.'%')
-           ->orWhere('nombres','like','%'.$request->search.'%')
-           ->orWhere ('ci','like','%'.$request->search.'%')
-           ->orWhere('direccion','like','%'.$request->search.'%')
-           ->orWhere('celular','like','%'.$request->search.'%')
-           ->orWhere('correo','like','%'.$request->search.'%')
-           ->orWhere('especialidad','like','%'.$request->search.'%');
+        $search = $request->input('search'); // Obtén el valor del campo de búsqueda
+        $maestro = Maestros::orderBy('id', 'ASC');
+        // Aplicar búsqueda si se proporciona un término de búsqueda
+        if ($search) {
+            $maestro->where(function ($query) use ($search) {
+                $query->where('id', 'like', '%' . $search . '%')
+                    ->orWhere('apellidos', 'like', '%' . $search . '%')
+                    ->orWhere('nombres', 'like', '%' . $search . '%')
+                    ->orWhere('ci', 'like', '%' . $search . '%')
+                    ->orWhere('direccion', 'like', '%' . $search . '%')
+                    ->orWhere('celular', 'like', '%' . $search . '%')
+                    ->orWhere('correo', 'like', '%' . $search . '%')
+                    ->orWhere('especialidad', 'like', '%' . $search . '%');
+            });
         }
-       $maestro=$maestro->paginate($limit)->appends($request->all());
-        return view('Maestro.index',compact('maestro'));
+        $maestro = $maestro->get(); // Obtener todos los registros que coinciden con la búsqueda
+        return view('Maestro.index', compact('maestro'));
     }
-
+    public function pdf(Request $request)
+    {
+        $search = $request->input('search'); // Obtén el valor del campo de búsqueda
+        $maestro = Maestros::orderBy('id', 'ASC');
+        // Aplicar búsqueda si se proporciona un término de búsqueda
+        if ($search) {
+            $maestro->where(function ($query) use ($search) {
+                $query->where('id', 'like', '%' . $search . '%')
+                    ->orWhere('apellidos', 'like', '%' . $search . '%')
+                    ->orWhere('nombres', 'like', '%' . $search . '%')
+                    ->orWhere('ci', 'like', '%' . $search . '%')
+                    ->orWhere('direccion', 'like', '%' . $search . '%')
+                    ->orWhere('celular', 'like', '%' . $search . '%')
+                    ->orWhere('correo', 'like', '%' . $search . '%')
+                    ->orWhere('especialidad', 'like', '%' . $search . '%');
+            });
+        }
+        $maestro = $maestro->get(); 
+        $pdf = PDF::loadView('Maestro.pdf', compact('maestro'));
+        // Devolver el PDF para ser mostrado en el navegador
+        return $pdf->stream('Maestro.pdf');
+    }
     /**
      * Show the form for creating a new resource.
      */

@@ -39,10 +39,10 @@
             <tbody>
 
 
-                @foreach($detalles as $detalle)
+                @foreach($detalles as $key => $detalle)
 
                 <tr>
-                    <td>{{$detalle->id}}</td>
+                    <td>{{$key + 1}}</td>
                     <td>{{$detalle->aulas->NumAula}}</td>
                     <td>{{$detalle->materias->nombremateria}}</td>
                     <td>{{$detalle->HoraInicio}}</td>

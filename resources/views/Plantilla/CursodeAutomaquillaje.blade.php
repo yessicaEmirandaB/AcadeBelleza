@@ -43,7 +43,7 @@
     <div class="row">
 
         <div class="image">
-            <img src="img/planchad.jpg" alt="" >
+            <img src="img/automa.jpg" alt="" >
         </div>
 
         <div class="content">

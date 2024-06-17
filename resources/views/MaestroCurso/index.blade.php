@@ -30,7 +30,7 @@
                 <tr>
                     <th>#</th>
                     <th>Maestro</th>
-                    <th>cursos</th>
+                    <th>Cursos</th>
                     <th>Acciones</th>
                 </tr>
             </thead>

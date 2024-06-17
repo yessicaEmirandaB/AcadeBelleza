@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 class AlumnosController extends Controller
 {
     function _construct()
@@ -22,32 +24,53 @@ class AlumnosController extends Controller
      */
     public function index(Request $request)
     {
-        /*$alumnos=Alumnos::get();*/
-        $alumno=Alumnos::select('*')->orderBy('id','ASC');
-        $limit=(isset($request->limit))?$request->limit:10;
+        $search = $request->input('search'); // Obtén el valor del campo de búsqueda
 
-        if(isset($request->search)) {
-           $alumno=$alumno->where('id','like','%'.$request->search.'%')
-           ->orWhere('Apellidos','like','%'.$request->search.'%')
-           ->orWhere('Nombres','like','%'.$request->search.'%')
-           ->orWhere ('CI','like','%'.$request->search.'%')
-           ->orWhere('Direccion','like','%'.$request->search.'%')
-           ->orWhere('Celular','like','%'.$request->search.'%')
-           ->orWhere('Correo','like','%'.$request->search.'%');
+        $alumno = Alumnos::orderBy('id', 'ASC');
+        // Aplicar búsqueda si se proporciona un término de búsqueda
+        if ($search) {
+            $alumno->where(function ($query) use ($search) {
+                $query->where('id', 'like', '%' . $search . '%')
+                    ->orWhere('Apellidos', 'like', '%' . $search . '%')
+                    ->orWhere('Nombres', 'like', '%' . $search . '%')
+                    ->orWhere('CI', 'like', '%' . $search . '%')
+                    ->orWhere('Direccion', 'like', '%' . $search . '%')
+                    ->orWhere('Celular', 'like', '%' . $search . '%')
+                    ->orWhere('Correo', 'like', '%' . $search . '%');
+            });
         }
-
-
-       /* $datos['alumno']=Alumnos::paginate(3);*/
-       $alumno=$alumno->paginate($limit)->appends($request->all());
-        return view('Alumno.index',compact('alumno'));
+        $alumno = $alumno->get(); // Obtener todos los registros que coinciden con la búsqueda
+        return view('Alumno.index', compact('alumno'));
     }
+    public function pdf(Request $request)
+    {
+        $search = $request->input('search'); // Obtén el valor del campo de búsqueda
+        $alumno = Alumnos::orderBy('id', 'ASC');
+        // Aplicar búsqueda si se proporciona un término de búsqueda
+        if ($search) {
+            $alumno->where(function ($query) use ($search) {
+                $query->where('id', 'like', '%' . $search . '%')
+                    ->orWhere('Apellidos', 'like', '%' . $search . '%')
+                    ->orWhere('Nombres', 'like', '%' . $search . '%')
+                    ->orWhere('CI', 'like', '%' . $search . '%')
+                    ->orWhere('Direccion', 'like', '%' . $search . '%')
+                    ->orWhere('Celular', 'like', '%' . $search . '%')
+                    ->orWhere('Correo', 'like', '%' . $search . '%');
+            });
+        }
+        $alumno = $alumno->get(); // Obtener todos los registros que coinciden con la búsqueda
+        $pdf = PDF::loadView('Alumno.pdf', compact('alumno'));
+        // Devolver el PDF para ser mostrado en el navegador
+        return $pdf->stream('alumnos.pdf');
+    }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $users=User::all();
+        $users = User::all();
         return view('Alumno.create', compact('users'));
     }
 
@@ -57,29 +80,29 @@ class AlumnosController extends Controller
     public function store(Request $request)
     {
         //
-         $campos=[
-            'Apellidos'=>'required|string|max:100',
-            'Nombres'=>'required|string|max:100',
-            'CI'=>'required|string|max:100',
-            'Direccion'=>'required|string|max:100',
-            'Celular'=>'required|string|max:100',
-            'Correo'=>'required|email',
-            'Foto'=>'required|max:10000|mimes:jpeg,png,jpg',
-         ];
-         $mensaje=[
-            'required'=>'El :attribute es requerido',
-            'Foto.required'=>'La foto requerida'
+        $campos = [
+            'Apellidos' => 'required|string|max:100',
+            'Nombres' => 'required|string|max:100',
+            'CI' => 'required|string|max:100',
+            'Direccion' => 'required|string|max:100',
+            'Celular' => 'required|string|max:100',
+            'Correo' => 'required|email',
+            'Foto' => 'required|max:10000|mimes:jpeg,png,jpg',
+        ];
+        $mensaje = [
+            'required' => 'El :attribute es requerido',
+            'Foto.required' => 'La foto requerida'
         ];
 
-        $this->validate($request,$campos,$mensaje);
+        $this->validate($request, $campos, $mensaje);
 
         $datosAlumno = request()->except('_token');
-        if($request->hasFile('Foto')){
-            $datosAlumno['Foto']=$request->file('Foto')->store('uploads','public');
+        if ($request->hasFile('Foto')) {
+            $datosAlumno['Foto'] = $request->file('Foto')->store('uploads', 'public');
         }
         Alumnos::insert($datosAlumno);
         //return response()->json($datosAlumno);
-        return redirect('Alumno')->with('mensaje','Alumno agregado con exito');
+        return redirect('Alumno')->with('mensaje', 'Alumno agregado con exito');
     }
 
     /**
@@ -98,47 +121,47 @@ class AlumnosController extends Controller
     public function edit($id)
     {
         //
-        $alumnos=Alumnos::findOrFail($id);
-        $users=User::all();
-        return view('Alumno.edit',compact('users', 'alumnos'));
+        $alumnos = Alumnos::findOrFail($id);
+        $users = User::all();
+        return view('Alumno.edit', compact('users', 'alumnos'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $campos=[
-            'Apellidos'=>'required|string|max:100',
-            'Nombres'=>'required|string|max:100',
-            'CI'=>'required|string|max:100',
-            'Direccion'=>'required|string|max:100',
-            'Celular'=>'required|string|max:100',
-            'Correo'=>'required|email',
-         ];
-         $mensaje=[
-            'required'=>'El :attribute es requerido',
+        $campos = [
+            'Apellidos' => 'required|string|max:100',
+            'Nombres' => 'required|string|max:100',
+            'CI' => 'required|string|max:100',
+            'Direccion' => 'required|string|max:100',
+            'Celular' => 'required|string|max:100',
+            'Correo' => 'required|email',
+        ];
+        $mensaje = [
+            'required' => 'El :attribute es requerido',
         ];
 
-        if($request->hasFile('Foto')){
-            $campos=['Foto'=>'required|max:10000|mimes:jpeg,png,jpg'];
-            $mensaje=['Foto.required'=>'La foto requerida'];
+        if ($request->hasFile('Foto')) {
+            $campos = ['Foto' => 'required|max:10000|mimes:jpeg,png,jpg'];
+            $mensaje = ['Foto.required' => 'La foto requerida'];
         }
-        $this->validate($request,$campos,$mensaje);
+        $this->validate($request, $campos, $mensaje);
         //
-        $datosAlumno = request()->except(['_token','_method']);
+        $datosAlumno = request()->except(['_token', '_method']);
 
-        if($request->hasFile('Foto')){
-            $alumnos=Alumnos::findOrFail($id);
-            Storage::delete('public/'.$alumnos->Foto);
-            $datosAlumno['Foto']=$request->file('Foto')->store('uploads','public');
+        if ($request->hasFile('Foto')) {
+            $alumnos = Alumnos::findOrFail($id);
+            Storage::delete('public/' . $alumnos->Foto);
+            $datosAlumno['Foto'] = $request->file('Foto')->store('uploads', 'public');
         }
 
-        Alumnos::where('id','=',$id)->update($datosAlumno);
+        Alumnos::where('id', '=', $id)->update($datosAlumno);
 
-         $alumnos=Alumnos::findOrFail($id);
-       // return view('Alumno.edit',compact('alumnos'));
-       return redirect('Alumno')->with('mensaje','El alumno fue modificado');
+        $alumnos = Alumnos::findOrFail($id);
+        // return view('Alumno.edit',compact('alumnos'));
+        return redirect('Alumno')->with('mensaje', 'El alumno fue modificado');
     }
 
     /**
@@ -147,18 +170,18 @@ class AlumnosController extends Controller
     public function destroy($id)
     {
         //
-        $alumnos=Alumnos::findOrFail($id);
-        if(Storage::delete('public/'.$alumnos->Foto)){
+        $alumnos = Alumnos::findOrFail($id);
+        if (Storage::delete('public/' . $alumnos->Foto)) {
 
-           Alumnos::destroy($id);
+            Alumnos::destroy($id);
         }
 
-        return redirect('Alumno')->with('mensaje','El alumno borrado correctamente');
+        return redirect('Alumno')->with('mensaje', 'El alumno borrado correctamente');
     }
     public function prueba()
     {
         $role = Role::where('name', '=', 'supervisor')->first();
-       $permissions = Permission::where('name', 'like', '%alumnos%')->get();
+        $permissions = Permission::where('name', 'like', '%alumnos%')->get();
         dd($role);
     }
 }
