@@ -46,7 +46,7 @@
 
 <body>
     <img src="imagenes/logo.jpg" alt="" width="50px" height="50px">
-    <h1 class="text-center">REPORTE DE CURSOS HABILITADOS </h1> <br>
+    <h1 class="text-center">REPORTE DE CURSOS VIGENTES </h1> <br>
     <table class="table table-striped table-bordered">
         <thead class="thead-dark">
             <tr>

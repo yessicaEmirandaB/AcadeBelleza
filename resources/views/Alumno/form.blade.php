@@ -13,8 +13,7 @@
 
 <div class="form-group">
 <label for="Apellidos"> Apellidos </label>
-<input type="text" class="form-control" name="Apellidos" 
-value="{{ isset($alumnos->Apellidos)?$alumnos->Apellidos:old('Apellidos')}}" id="Apellidos">
+<input type="text" class="form-control" name="Apellidos" value="{{ isset($alumnos->Apellidos)?$alumnos->Apellidos:old('Apellidos')}}" id="Apellidos">
 <br>
 </div>
 

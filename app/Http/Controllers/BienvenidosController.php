@@ -2,25 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Probando;
+use App\Models\Alumnos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 
-class ProbandoController extends Controller
+class BienvenidosController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return view('BIENVENIDO.index');
     }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -28,38 +32,42 @@ class ProbandoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Probando $probando)
+    public function show($id)
     {
-        //
+       
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Probando $probando)
+    public function edit($id)
     {
-        //
+       
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Probando $probando)
+    public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Probando $probando)
+    public function destroy($id)
     {
-        //
+       
+    }
+    public function prueba()
+    {
+       
     }
 }

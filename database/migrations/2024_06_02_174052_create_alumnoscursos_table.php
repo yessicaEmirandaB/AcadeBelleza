@@ -20,18 +20,6 @@ return new class extends Migration
             $table->foreign('cursos_id')->references('id')->on('cursos')->onDelete('cascade');
 
 
-            /*
-            $table->foreignId('Alumnos_id')
-                ->nullable()
-                ->constrained('Alumnos')
-                ->cascadeOnUpdate()
-                ->nullOnDelete();
-
-            $table->foreignId('cursos_id')
-                ->nullable()
-                ->constrained('cursos')
-                ->cascadeOnUpdate()
-                ->nullOnDelete();*/
 
             $table->timestamps();
         });

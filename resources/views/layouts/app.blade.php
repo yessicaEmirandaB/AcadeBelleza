@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Makeup Miranda</title>
    <!-- <link rel="stylesheet" href="Bootstrapp/css/bootstrapp.min.css">  ESTE ES EL LLAMADO DE LA CARPETA DE BOOTSTRAP -->
 
     <!-- Fonts -->

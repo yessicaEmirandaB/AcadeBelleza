@@ -51,7 +51,7 @@ class MaestrosController extends Controller
                     ->orWhere('especialidad', 'like', '%' . $search . '%');
             });
         }
-        $maestro = $maestro->get(); 
+        $maestro = $maestro->get();
         $pdf = PDF::loadView('Maestro.pdf', compact('maestro'));
         // Devolver el PDF para ser mostrado en el navegador
         return $pdf->stream('Maestro.pdf');
@@ -61,7 +61,7 @@ class MaestrosController extends Controller
      */
     public function create()
     {
-        $users=User::all();
+        $users = User::all();
         return view('Maestro.create', compact('users'));
     }
 
@@ -71,30 +71,32 @@ class MaestrosController extends Controller
     public function store(Request $request)
     {
         //
-         $campos=[
-            'apellidos'=>'required|string|max:100',
-            'nombres'=>'required|string|max:100',
-            'ci'=>'required|string|max:100',
-            'direccion'=>'required|string|max:100',
-            'celular'=>'required|string|max:100',
-            'correo'=>'required|email',
-            'Foto'=>'required|max:10000|mimes:jpeg,png,jpg',
-            'especialidad'=>'required|string|max:100',
-         ];
-         $mensaje=[
-            'required'=>'El :attributo es requerido',
-            'Foto.required'=>'La foto requerida'
+        $campos = [
+            'apellidos' => 'required|string|max:100',
+            'nombres' => 'required|string|max:100',
+            'ci' => 'required|string|max:100|unique:maestros',
+            'direccion' => 'required|string|max:100',
+            'celular' => 'required|string|size:8',
+            'correo' => 'required|email',
+            'Foto' => 'required|max:10000|mimes:jpeg,png,jpg',
+            'especialidad' => 'required|string|max:100',
         ];
-        
-        $this->validate($request,$campos,$mensaje);
+        $mensaje = [
+            'unique' => 'El :attribute ya existe verifique.',
+            'required' => 'El :attributo es requerido',
+            'Foto.required' => 'La foto requerida',
+            'size' => 'El campo :attribute debe contener exactamente :size caracteres.'
+        ];
+
+        $this->validate($request, $campos, $mensaje);
 
         $datosMaestro = request()->except('_token');
-        if($request->hasFile('Foto')){
-            $datosMaestro['Foto']=$request->file('Foto')->store('uploads','public');
-        } 
+        if ($request->hasFile('Foto')) {
+            $datosMaestro['Foto'] = $request->file('Foto')->store('uploads', 'public');
+        }
         Maestros::insert($datosMaestro);
         //return response()->json($datosAlumno);
-        return redirect('Maestro')->with('mensaje','Maestro agregado con exito');
+        return redirect('Maestro')->with('mensaje', 'Maestro agregado con exito');
     }
 
     /**
@@ -111,49 +113,51 @@ class MaestrosController extends Controller
     public function edit($id)
     {
         //
-        $maestros=Maestros::findOrFail($id);
-        $users=User::all();
-        return view('Maestro.edit',compact('users', 'maestros'));
+        $maestros = Maestros::findOrFail($id);
+        $users = User::all();
+        return view('Maestro.edit', compact('users', 'maestros'));
     }
 
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $campos=[
-            'apellidos'=>'required|string|max:100',
-            'nombres'=>'required|string|max:100',
-            'ci'=>'required|string|max:100',
-            'direccion'=>'required|string|max:100',
-            'celular'=>'required|string|max:100',
-            'correo'=>'required|email',
-            'especialidad'=>'required|string|max:100',
-         ];
-         $mensaje=[
-            'required'=>'El :attributo es requerido',
+        $campos = [
+            'apellidos' => 'required|string|max:100',
+            'nombres' => 'required|string|max:100',
+            'ci' => 'required|string|max:100|unique:maestros,ci,' . $id,
+            'direccion' => 'required|string|max:100',
+            'celular' => 'required|string|size:8',
+            'correo' => 'required|email',
+            'especialidad' => 'required|string|max:100',
         ];
-        
-        if($request->hasFile('Foto')){
-            $campos=['Foto'=>'required|max:10000|mimes:jpeg,png,jpg'];
-            $mensaje=['Foto.required'=>'La foto requerida'];
-        }
-        $this->validate($request,$campos,$mensaje);
-        //
-        $datosMaestro = request()->except(['_token','_method']);
-         
-        if($request->hasFile('Foto')){
-            $maestros=Maestros::findOrFail($id);
-            Storage::delete('public/'.$maestros->Foto);
-            $datosMaestro['Foto']=$request->file('Foto')->store('uploads','public');
-        } 
-        
-        Maestros::where('id','=',$id)->update($datosMaestro);
+        $mensaje = [
+            'unique' => 'El :attribute ya existe verifique.',
+            'required' => 'El :attributo es requerido',
+            'size' => 'El campo :attribute debe contener exactamente :size caracteres.'
+        ];
 
-         $maestros=Maestros::findOrFail($id);
-       // return view('Alumno.edit',compact('alumnos'));
-       return redirect('Maestro')->with('mensaje','El maestro fue modificado');
+        if ($request->hasFile('Foto')) {
+            $campos = ['Foto' => 'required|max:10000|mimes:jpeg,png,jpg'];
+            $mensaje = ['Foto.required' => 'La foto requerida'];
+        }
+        $this->validate($request, $campos, $mensaje);
+        //
+        $datosMaestro = request()->except(['_token', '_method']);
+
+        if ($request->hasFile('Foto')) {
+            $maestros = Maestros::findOrFail($id);
+            Storage::delete('public/' . $maestros->Foto);
+            $datosMaestro['Foto'] = $request->file('Foto')->store('uploads', 'public');
+        }
+
+        Maestros::where('id', '=', $id)->update($datosMaestro);
+
+        $maestros = Maestros::findOrFail($id);
+        // return view('Alumno.edit',compact('alumnos'));
+        return redirect('Maestro')->with('mensaje', 'El maestro fue modificado');
     }
 
     /**
@@ -162,12 +166,12 @@ class MaestrosController extends Controller
     public function destroy($id)
     {
         //
-        $maestros=Maestros::findOrFail($id);
-        if(Storage::delete('public/'.$maestros->Foto)){
-           
+        $maestros = Maestros::findOrFail($id);
+        if (Storage::delete('public/' . $maestros->Foto)) {
+
             Maestros::destroy($id);
-        } 
-        
-        return redirect('Maestro')->with('mensaje','El maestro fue borrado correctamente');
+        }
+
+        return redirect('Maestro')->with('mensaje', 'El maestro fue borrado correctamente');
     }
 }

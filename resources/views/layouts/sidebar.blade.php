@@ -8,6 +8,14 @@
 
             <ul class="list-unstyled components">
                 @can('ver-alumnos')
+                <li class="{{'BIENVENIDO'==Request::is('BIENVENIDO*')?'active':''}}">
+                    <a href="{{ route('BIENVENIDO.index')}}">
+                        <i class="fa fa-graduation-cap"></i>
+                        <b>BIENVENIDO</b>
+                    </a>
+                </li>
+                @endcan
+                @can('ver-alumnos')
                 <li>
                     <a href="/" data-bs-toggle="collapse" data-bs-target="#homeSubmenuInscripcion" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-graduation-cap"></i>
@@ -150,7 +158,65 @@
                     </ul>
                 </li>
                 @endcan
-
+                @can('ver-alumnos')
+                <li class="{{'Aula'==Request::is('Aula*')?'active':''}}">
+                    <a href="{{ route('Aula.index')}}">
+                        <i class="fa fa-book"></i>
+                        <b>PAGOS</b>
+                    </a>
+                </li>
+                @endcan
+                @can('ver-alumnos')
+                <li>
+                    <a href="/" data-bs-toggle="collapse" data-bs-target="#homeSubmenuReporte" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fa fa-graduation-cap"></i>
+                        <b>REPORTE</b>
+                    </a>
+                    <ul class="collapse list-unstyled" id="homeSubmenuReporte">
+                        @can('ver-alumnos')
+                        <li class="{{'Alumno'==Request::is('Alumno*')?'active':''}}">
+                            <a href="{{ route('Alumno.pdf') }}" target="_blank">
+                                <i class="fa fa-graduation-cap"></i>
+                                <b>Alumnos</b>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('ver-alumnos')
+                        <li class="{{'Curso'==Request::is('Curso*')?'active':''}}">
+                            <a href="{{ route('Curso.pdf')}}"  target="_blank">
+                                <i class="fa fa-book"></i>
+                                <b>Curso</b>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('ver-alumnos')
+                        <li class="{{'Maestro'==Request::is('Maestro*')?'active':''}}">
+                            <a href="{{ route('Maestro.pdf')}}" target="_blank">
+                                <i class='fas fa-chalkboard-teacher'></i>
+                                <b>Maestros</b>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('ver-alumnos')
+                        <li class="{{'Materia'==Request::is('Materia*')?'active':''}}">
+                            <a href="{{ route('Materia.pdf')}}" target="_blank">
+                                <i class="fa fa-book"></i>
+                                <b>Materias</b>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('ver-alumnos')
+                        <li class="{{'Horario'==Request::is('Horario*')?'active':''}}">
+                            <a href="{{ route('Horario.pdf')}}" target="_blank">
+                                <i class="fa fa-book"></i>
+                                <b>Horario</b>
+                            </a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li>
+                @endcan
+                
             </ul>
         </nav>
 

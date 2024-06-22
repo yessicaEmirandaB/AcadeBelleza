@@ -83,15 +83,17 @@ class AlumnosController extends Controller
         $campos = [
             'Apellidos' => 'required|string|max:100',
             'Nombres' => 'required|string|max:100',
-            'CI' => 'required|string|max:100',
+            'CI' => 'required|string|max:100|unique:alumnos', // Verifica la unicidad
             'Direccion' => 'required|string|max:100',
-            'Celular' => 'required|string|max:100',
+            'Celular' => 'required|string|size:8',
             'Correo' => 'required|email',
             'Foto' => 'required|max:10000|mimes:jpeg,png,jpg',
         ];
         $mensaje = [
+            'unique' => 'El :attribute ya existe verifique.',
             'required' => 'El :attribute es requerido',
-            'Foto.required' => 'La foto requerida'
+            'Foto.required' => 'La foto requerida',
+            'size' => 'El campo :attribute debe contener exactamente :size caracteres.'
         ];
 
         $this->validate($request, $campos, $mensaje);
@@ -134,13 +136,15 @@ class AlumnosController extends Controller
         $campos = [
             'Apellidos' => 'required|string|max:100',
             'Nombres' => 'required|string|max:100',
-            'CI' => 'required|string|max:100',
+            'CI' => 'required|string|max:100|unique:alumnos,CI,' . $id,
             'Direccion' => 'required|string|max:100',
-            'Celular' => 'required|string|max:100',
+            'Celular' => 'required|string|size:8',
             'Correo' => 'required|email',
         ];
         $mensaje = [
+            'unique' => 'El :attribute ya existe verifique.',
             'required' => 'El :attribute es requerido',
+            'size' => 'El campo :attribute debe contener exactamente :size caracteres.',
         ];
 
         if ($request->hasFile('Foto')) {

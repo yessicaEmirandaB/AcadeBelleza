@@ -10,6 +10,8 @@ use App\Http\Controllers\DetalleCursoMaestroController;
 use App\Http\Controllers\MateriasController;
 use App\Http\Controllers\DuracioncursosController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\BienvenidosController;
+
 //Agregamos los controladores para roles y permisos
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RolController;
@@ -41,12 +43,12 @@ Route::group(['middleware'=> ['auth']],function(){
 Route::get('/Alumno/create',[AlumnosController::class,'create']);
 Auth::routes();
 
-Route::get('/home', [AlumnosController::class, 'index'])->name('home');
+Route::get('/home', [BienvenidosController::class, 'index'])->name('home');
 
-Route::resource('/Alumno', AlumnosController::class)->middleware('auth');
+Route::resource('/BIENVENIDO', BienvenidosController::class)->middleware('auth');
 Auth::routes(['reset'=>false]);
 
-
+Route::resource('/Alumno', AlumnosController::class);
 Route::get('AlumnoCurso/pdf',[ControllersAlumnoscursosController::class, 'pdf'] )->name('AlumnoCurso.pdf');
 Route::resource('/AlumnoCurso', ControllersAlumnoscursosController::class);
 Route::get('MaestroCurso/pdf',[DetalleCursoMaestroController::class, 'pdf'] )->name('MaestroCurso.pdf');
@@ -62,6 +64,7 @@ Route::resource('/Horario', HorariosController::class);
 Route::resource('/Aula', AulasController::class);
 Route::get('DuracionCurso/pdf',[DuracioncursosController::class, 'pdf'] )->name('DuracionCurso.pdf');
 Route::resource('/DuracionCurso', DuracioncursosController::class);
+Route::resource('/BIENVENIDO', BienvenidosController::class);
 
 
 //RUTAS DEl FRONT-END

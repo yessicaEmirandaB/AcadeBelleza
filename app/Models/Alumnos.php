@@ -23,4 +23,5 @@ class Alumnos extends Model
             'Correo',
             'Foto',
         ];
+
 }
