@@ -78,7 +78,7 @@ class RolController extends Controller
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
-    
+
         return view('roles.edit',compact('role','permission','rolePermissions'));
     }
 
@@ -91,14 +91,14 @@ class RolController extends Controller
             'name' => 'required',
             'permission' => 'required',
         ]);
-    
+
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
-    
+
         $role->syncPermissions($request->input('permissions'));
-    
-        return redirect()->route('roles.index');      
+
+        return redirect()->route('roles.index');
 
 
     }

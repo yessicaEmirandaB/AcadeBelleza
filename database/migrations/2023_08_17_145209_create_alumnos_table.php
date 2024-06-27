@@ -20,7 +20,10 @@ return new class extends Migration
             $table->string('Celular',10);
             $table->string('Correo',50)->nullable();
             $table->string('Foto')->nullable();
-            
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

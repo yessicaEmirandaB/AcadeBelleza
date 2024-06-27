@@ -17,11 +17,13 @@ return new class extends Migration
             $table->string('nombres',50);
             $table->string('ci',10)->unique();
             $table->string('direccion',50);
-           /* $table->string('materia',50); */
             $table->string('celular',10);
             $table->string('correo',50)->nullable();
             $table->string('Foto');
             $table->string('especialidad');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

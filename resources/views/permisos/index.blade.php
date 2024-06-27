@@ -4,7 +4,7 @@
 <div class="container">
     <section class="section">
             <div class="section-header">
-                <h3 class="page__heading">Roles</h3>
+                <h3 class="page__heading">Permisos</h3>
             </div>
             <div class="section-body">
                 <div class="row">
@@ -13,26 +13,26 @@
                             <div class="card-body">
 
                             @can('crear-rol')
-                            <a class="btn btn-success" href="{{ route('roles.create') }}">Nuevo</a>
+                            <a class="btn btn-success" href="{{ route('permisos.create') }}">Nuevo</a>
                             @endcan
 
                             <br>
                                 <table class="table table-striped table-bordered">
                                     <thead class="table-warning">
-                                        <th style="color:#ff7b00;">Rol</th>
+                                        <th style="color:#ff7b00;">Permiso</th>
                                         <th style="color:#ff7b00;">Acciones</th>
                                     </thead>
                                     <tbody>
-                                    @foreach ($roles as $role)
+                                    @foreach ($permisos as $permiso)
                                     <tr>
-                                        <td>{{ $role->name }}</td>
+                                        <td>{{ $permiso->name }}</td>
                                         <td>
                                             @can('editar-rol')
-                                                <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Editar</a>
+                                                <a class="btn btn-primary" href="{{ route('permisos.edit',$permiso->id) }}">Editar</a>
                                             @endcan
 
                                             @can('borrar-rol')
-                                                {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
+                                                {!! Form::open(['method' => 'DELETE','route' => ['permisos.destroy', $permiso->id],'style'=>'display:inline']) !!}
                                                     {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
                                                 {!! Form::close() !!}
                                             @endcan
@@ -44,7 +44,7 @@
 
                                 <!-- Centramos la paginacion a la derecha -->
                                 <div class="pagination justify-content-end">
-                                    {!! $roles->links() !!}
+                                    {!! $permisos->links() !!}
                                 </div>
                                 </div>
                             </div>

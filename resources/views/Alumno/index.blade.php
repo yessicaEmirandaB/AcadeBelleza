@@ -12,7 +12,7 @@
     @endif
        @can('crear-alumnos')
         <div class="card-header d-inline-flex">
-            <a href="{{url('Alumno/create') }}" class="btn btn-success">Registrar nuevo estudiante</a>
+            <a href="{{route('alumnos.create')}}" class="btn btn-success">Registrar nuevo estudiante</a>
             &nbsp;
             <!-- <a href="{{url('Alumno/pdf') }}" class="btn btn-success" target="_blank">PDF</a>  Enlaces de paginación -->
             <a href="{{ url('Alumno/pdf?search=' . request('search')) }}" class="btn btn-success" target="_blank">PDF</a>
@@ -69,9 +69,9 @@
                                 @csrf
                                 {{method_field('DELETE')}}
 
-                                
+
                                 <button type="submit" class="btn btn-danger"  onclick="return confirm('¿Desea eliminar?')" value="Borrar"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                
+
                             </form>
                             @endcan
                         </div>

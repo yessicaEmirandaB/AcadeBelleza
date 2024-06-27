@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\PermisoController;
 use Illuminate\Http\Request;
-use Spatie\Permission\Contracts\Permission;
+use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\DB;
 
 class PermisoControllerController extends Controller
 {
@@ -13,8 +14,8 @@ class PermisoControllerController extends Controller
      */
     public function index()
     {
-   
-        return view('sistema.user.permisos', compact('permisos'));
+        $permisos = Permission::paginate(15);
+        return view('permisos.index', compact('permisos'));
     }
 
     /**
@@ -22,7 +23,7 @@ class PermisoControllerController extends Controller
      */
     public function create()
     {
-        //
+        return view('permisos.create');
     }
 
     /**
@@ -30,38 +31,42 @@ class PermisoControllerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        $permiso = Permission::create(['name' => $request->input('name')]);
+
+        return redirect()->route('permisos.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(PermisoController $permisoController)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(PermisoController $permisoController)
+    public function edit(string $id)
     {
-        //
+        $permiso = Permission::find($id);
+        return view('permisos.edit',compact('permiso'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, PermisoController $permisoController)
+    public function update(Request $request, string $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        $permiso = Permission::find($id);
+        $permiso->name = $request->input('name');
+        $permiso->save();
+        return redirect()->route('permisos.index');
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(PermisoController $permisoController)
+    public function destroy(string $id)
     {
-        //
+        DB::table("permissions")->where('id', $id)->delete();
+        return redirect()->route('permisos.index');
     }
 }
