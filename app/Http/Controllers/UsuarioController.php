@@ -15,10 +15,10 @@ class UsuarioController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:ver-alumnos', ['only' => ['index', 'show']]);
-        $this->middleware('permission:crear-alumnos', ['only' => ['create', 'store']]);
-        $this->middleware('permission:editar-alumnos', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:borrar-alumnos', ['only' => ['destroy']]);
+        $this->middleware('permission:ver-usuarios', ['only' => ['index', 'show']]);
+        $this->middleware('permission:crear-usuarios', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-usuarios', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-usuarios', ['only' => ['destroy']]);
     }
     public function index()
     {

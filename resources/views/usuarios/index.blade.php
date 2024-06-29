@@ -3,7 +3,7 @@
 <br>
  <div class="container">
         <div class="card-header d-inline-flex">
-          <a href="{{url('usuarios/create') }}" class="btn btn-success">CREAR</a>
+          <a href="{{ route('register') }}"" class="btn btn-success">CREAR</a>
         </div>
       <br>
     <div class="container">
@@ -20,7 +20,7 @@
             <tr>
                 <td style="display: none;">{{$usuario->id}}</td>
                 <td>{{$usuario->name}}</td>
-                <td>{{$usuario->email}}</td> 
+                <td>{{$usuario->email}}</td>
                 <td>
                     @if(!empty($usuario->getRoleNames()))
                         @foreach($usuario->getRoleNames() as $rolName)
@@ -30,7 +30,7 @@
                 </td>
                 <td>
                     <a class="btn btn-info" href="{{route('usuarios.edit',$usuario->id)}}">Editar<i class="fa fa-pencil-alt"></i></a>
-                
+
                     {!! Form::open(['method' => 'DELETE', 'route' => ['usuarios.destroy', $usuario->id], 'style' => 'display:inline']) !!}
                     {!! Form::button('<i class="fa fa-trash"></i> Borrar', ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => "return confirm('¿Estás seguro de que quieres eliminar este usuario?')"]) !!}
                     {!! Form::close() !!}

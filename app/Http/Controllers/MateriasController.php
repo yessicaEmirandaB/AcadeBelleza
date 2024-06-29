@@ -11,10 +11,10 @@ class MateriasController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:ver-materias');
-        $this->middleware('permission:crear-materias');
-        $this->middleware('permission:editar-materias');
-        $this->middleware('permission:borrar-materias');
+        $this->middleware('permission:ver-materias', ['only' => ['index', 'show']]);
+        $this->middleware('permission:crear-materias', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-materias', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-materias', ['only' => ['destroy']]);
     }
     public function index(Request $request)
     {
