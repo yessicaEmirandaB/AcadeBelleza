@@ -48,14 +48,14 @@ class RolController extends Controller
         return redirect()->route('roles.index');*/
 
 
-
+dd($request);
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
             'permission' => 'required',
         ]);
 
         $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
+        $role->syncPermissions($request->input('permissions'));
 
         return redirect()->route('roles.index');
     }
@@ -82,9 +82,6 @@ class RolController extends Controller
         return view('roles.edit',compact('role','permission','rolePermissions'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $this->validate($request, [
@@ -96,18 +93,12 @@ class RolController extends Controller
         $role->name = $request->input('name');
         $role->save();
 
-        $role->syncPermissions($request->input('permissions'));
+        $permissionNames = Permission::whereIn('id', $request->input('permission'))->pluck('name')->toArray();
+        $role->syncPermissions($permissionNames);
 
         return redirect()->route('roles.index');
-
-
     }
 
-
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
 
