@@ -10,7 +10,7 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-                <h3>1</h3>
+                <h3>{{App\Models\User::count()}}</h3>
                 <p>USUARIOS</p>
             </div>
             <div class="icon">
@@ -24,7 +24,7 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>1</h3>
+              <h3>{{App\Models\Alumnos::count()}}</h3>
               <p>ALUMNOS</p>
             </div>
             <div class="icon">
@@ -38,7 +38,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                  <h3>1</h3>
+                  <h3>{{App\Models\Maestros::count()}}</h3>
                   <p>MAESTROS</p>
               </div>
               <div class="icon">

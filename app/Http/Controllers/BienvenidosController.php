@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumnos;
+use App\Models\Maestros;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
@@ -17,6 +18,7 @@ class BienvenidosController extends Controller
      */
     public function index(Request $request)
     {
+      
         return view('BIENVENIDO.index');
     }
     /**
