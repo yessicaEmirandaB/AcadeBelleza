@@ -11,10 +11,10 @@ class CursosController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:ver-cursos');
-        $this->middleware('permission:crear-cursos');
-        $this->middleware('permission:editar-cursos');
-        $this->middleware('permission:borrar-cursos');
+        $this->middleware('permission:ver-cursos', ['only' => ['index', 'show']]);
+        $this->middleware('permission:crear-cursos', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-cursos', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-cursos', ['only' => ['destroy']]);
     }
     public function index(Request $request)
     {

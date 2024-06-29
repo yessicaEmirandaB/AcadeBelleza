@@ -11,10 +11,10 @@ class DuracioncursosController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:ver-ver-usuarios');
-        $this->middleware('permission:crear-ver-usuarios');
-        $this->middleware('permission:editar-ver-usuarios');
-        $this->middleware('permission:borrar-ver-usuarios');
+        $this->middleware('permission:ver-alumnos', ['only' => ['index', 'show']]);
+        $this->middleware('permission:crear-alumnos', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-alumnos', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-alumnos', ['only' => ['destroy']]);
     }
     public function index(Request $request)
     {

@@ -13,10 +13,10 @@ class MaestrosController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:ver-maestros');
-        $this->middleware('permission:crear-maestros');
-        $this->middleware('permission:editar-maestros');
-        $this->middleware('permission:borrar-maestros');
+        $this->middleware('permission:ver-maestros', ['only' => ['index', 'show']]);
+        $this->middleware('permission:crear-maestros', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-maestros', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-maestros', ['only' => ['destroy']]);
     }
     public function index(Request $request)
     {
