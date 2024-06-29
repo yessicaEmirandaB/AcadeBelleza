@@ -18,6 +18,6 @@ class cursosSeeder extends Seeder
             DB::table('cursos')->insert([
                 'nombrecurso'=>$cursos
             ]);
-        } 
+        }
     }
 }

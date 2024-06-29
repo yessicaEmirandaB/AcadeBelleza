@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\DB;
 
 class RolController extends Controller
 {
-    function _construct()
+    function __construct()
     {
-        $this->middleware('permission:ver-rol|crear-rol|editar-rol|borrar-rol', ['only' => ['index']]);
-        $this->middleware('permission:crear-rol', ['only' => ['create', 'store']]);
-        $this->middleware('permission:editar-rol', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:borrar-rol', ['only' => ['destroy']]);
+        $this->middleware('permission:ver-ver-rol');
+        $this->middleware('permission:crear-ver-rol');
+        $this->middleware('permission:editar-ver-rol');
+        $this->middleware('permission:borrar-ver-rol');
     }
     /**
      * Display a listing of the resource.
@@ -78,7 +78,7 @@ class RolController extends Controller
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
-    
+
         return view('roles.edit',compact('role','permission','rolePermissions'));
     }
 
@@ -91,14 +91,14 @@ class RolController extends Controller
             'name' => 'required',
             'permission' => 'required',
         ]);
-    
+
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
-    
+
         $role->syncPermissions($request->input('permissions'));
-    
-        return redirect()->route('roles.index');      
+
+        return redirect()->route('roles.index');
 
 
     }

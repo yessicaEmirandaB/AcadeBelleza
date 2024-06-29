@@ -69,9 +69,9 @@
                                 @csrf
                                 {{method_field('DELETE')}}
 
-                                
+
                                 <button type="submit" class="btn btn-danger"  onclick="return confirm('¿Desea eliminar?')" value="Borrar"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                
+
                             </form>
                             @endcan
                         </div>

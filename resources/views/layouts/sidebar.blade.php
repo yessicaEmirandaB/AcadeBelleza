@@ -7,7 +7,7 @@
             </div>
 
             <ul class="list-unstyled components">
-                @can('ver-alumnos')
+                @can('ver-mod-home')
                 <li class="{{'BIENVENIDO'==Request::is('BIENVENIDO*')?'active':''}}">
                     <a href="{{ route('BIENVENIDO.index')}}">
                         <i class="fa fa-graduation-cap"></i>
@@ -15,7 +15,7 @@
                     </a>
                 </li>
                 @endcan
-                @can('ver-alumnos')
+                @can('ver-mod-inscripcion')
                 <li>
                     <a href="/" data-bs-toggle="collapse" data-bs-target="#homeSubmenuInscripcion" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-graduation-cap"></i>
@@ -30,7 +30,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-alumnoscursos')
                         <li class="{{'AlumnoCurso'==Request::is('AlumnoCurso*')?'active':''}}">
                             <a href="{{ route('AlumnoCurso.index')}}">
                                 <i class="fa fa-book"></i>
@@ -38,7 +38,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-horarios')
                         <li class="{{'Horario'==Request::is('Horario*')?'active':''}}">
                             <a href="{{ route('Horario.index')}}">
                                 <i class="fa fa-book"></i>
@@ -49,7 +49,7 @@
                     </ul>
                 </li>
                 @endcan
-                @can('ver-alumnos')
+                @can('ver-mod-parametro')
                 <li>
                     <a href="#" data-bs-toggle="collapse" data-bs-target="#homeSubmenuParametro" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-graduation-cap"></i>
@@ -64,7 +64,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-alumnoscursos')
                         <li class="{{'AlumnoCurso'==Request::is('AlumnoCurso*')?'active':''}}">
                             <a href="{{ route('AlumnoCurso.index')}}">
                                 <i class="fa fa-book"></i>
@@ -72,7 +72,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-maestros')
                         <li class="{{'Maestro'==Request::is('Maestro*')?'active':''}}">
                             <a href="{{ route('Maestro.index')}}">
                                 <i class='fas fa-chalkboard-teacher'></i>
@@ -80,7 +80,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-detalle__curso_maestros')
                         <li class="{{'MaestroCurso'==Request::is('MaestroCurso*')?'active':''}}">
                             <a href="{{ route('MaestroCurso.index')}}">
                                 <i class='fas fa-chalkboard-teacher'></i>
@@ -88,7 +88,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-cursos')
                         <li class="{{'Curso'==Request::is('Curso*')?'active':''}}">
                             <a href="{{ route('Curso.index')}}">
                                 <i class="fa fa-book"></i>
@@ -96,7 +96,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-materias')
                         <li class="{{'Materia'==Request::is('Materia*')?'active':''}}">
                             <a href="{{ route('Materia.index')}}">
                                 <i class="fa fa-book"></i>
@@ -104,7 +104,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-duracioncursos')
                         <li class="{{'DuracionCurso'==Request::is('DuracionCurso*')?'active':''}}">
                             <a href="{{ route('DuracionCurso.index')}}">
                                 <i class="fa fa-book"></i>
@@ -112,7 +112,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-aulas')
                         <li class="{{'Aula'==Request::is('Aula*')?'active':''}}">
                             <a href="{{ route('Aula.index')}}">
                                 <i class="fa fa-book"></i>
@@ -120,7 +120,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-horarios')
                         <li class="{{'Horario'==Request::is('Horario*')?'active':''}}">
                             <a href="{{ route('Horario.index')}}">
                                 <i class="fa fa-book"></i>
@@ -131,15 +131,15 @@
                     </ul>
                 </li>
                 @endcan
-               
-                @can('ver-alumnos')
+
+                @can('ver-mod-admistracion')
                 <li>
                     <a href="/" data-bs-toggle="collapse" data-bs-target="#homeSubmenuAdministracion" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-graduation-cap"></i>
                         <b>ADMINISTRACIÓN</b>
                     </a>
                     <ul class="collapse list-unstyled" id="homeSubmenuAdministracion">
-                        @can('ver-alumnos')
+                        @can('ver-permisos')
                         <li class="{{'usuarios'==Request::is('usuarios*')?'active':''}}">
                             <a href="{{ route('usuarios.index')}}">
                                 <i class="fa fa-users"></i>
@@ -147,7 +147,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-rol')
                         <li class="{{'roles'==Request::is('roles*')?'active':''}}">
                             <a href="{{ route('roles.index')}}">
                                 <i class="fa fa-users"></i>
@@ -158,7 +158,7 @@
                     </ul>
                 </li>
                 @endcan
-                @can('ver-alumnos')
+                @can('ver-mod-pago')
                 <li class="{{'Aula'==Request::is('Aula*')?'active':''}}">
                     <a href="{{ route('Aula.index')}}">
                         <i class="fa fa-book"></i>
@@ -166,7 +166,7 @@
                     </a>
                 </li>
                 @endcan
-                @can('ver-alumnos')
+                @can('ver-mod-reporte')
                 <li>
                     <a href="/" data-bs-toggle="collapse" data-bs-target="#homeSubmenuReporte" aria-expanded="false" class="dropdown-toggle">
                         <i class="fa fa-graduation-cap"></i>
@@ -181,7 +181,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-cursos')
                         <li class="{{'Curso'==Request::is('Curso*')?'active':''}}">
                             <a href="{{ route('Curso.pdf')}}"  target="_blank">
                                 <i class="fa fa-book"></i>
@@ -189,7 +189,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-maestros')
                         <li class="{{'Maestro'==Request::is('Maestro*')?'active':''}}">
                             <a href="{{ route('Maestro.pdf')}}" target="_blank">
                                 <i class='fas fa-chalkboard-teacher'></i>
@@ -197,7 +197,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-materias')
                         <li class="{{'Materia'==Request::is('Materia*')?'active':''}}">
                             <a href="{{ route('Materia.pdf')}}" target="_blank">
                                 <i class="fa fa-book"></i>
@@ -205,7 +205,7 @@
                             </a>
                         </li>
                         @endcan
-                        @can('ver-alumnos')
+                        @can('ver-horarios')
                         <li class="{{'Horario'==Request::is('Horario*')?'active':''}}">
                             <a href="{{ route('Horario.pdf')}}" target="_blank">
                                 <i class="fa fa-book"></i>
@@ -216,7 +216,7 @@
                     </ul>
                 </li>
                 @endcan
-                
+
             </ul>
         </nav>
 

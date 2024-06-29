@@ -12,16 +12,14 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class AlumnosController extends Controller
 {
-    function _construct()
+    function __construct()
     {
-        // $this->middleware('permission:ver-alumno|crear-rol|crear-alumno|editar-alumno|borrar-alumno',['only'=>['index']]);
-        // $this->middleware('permission:crear-alumno',['only'=>['create','store']]);
-        // $this->middleware('permission:editar-alumno',['only'=>['edit','update']]);
-        // $this->middleware('permission:borrar-alumno',['only'=>['destroy']]);
+        $this->middleware('permission:ver-alumnos');
+        $this->middleware('permission:crear-alumnos');
+        $this->middleware('permission:editar-alumnos');
+        $this->middleware('permission:borrar-alumnos');
     }
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
     {
         $search = $request->input('search'); // Obtén el valor del campo de búsqueda

@@ -10,9 +10,13 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class HorariosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    function __construct()
+    {
+        $this->middleware('permission:ver-ver-horarios');
+        $this->middleware('permission:crear-ver-horarios');
+        $this->middleware('permission:editar-ver-horarios');
+        $this->middleware('permission:borrar-ver-horarios');
+    }
     public function index(Request $request)
     {
         //
@@ -56,7 +60,7 @@ class HorariosController extends Controller
         return $pdf->stream();
         // return $pdf->download('alumnos_cursos.pdf'); // Para descargar directamente
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */

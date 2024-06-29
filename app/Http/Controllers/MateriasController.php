@@ -9,15 +9,13 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class MateriasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    /*public function index(Request $request)
+    function __construct()
     {
-        $materia=Materias::all();
-
-        return view('Materia.index',compact('materia'));
-    }*/
+        $this->middleware('permission:ver-materias');
+        $this->middleware('permission:crear-materias');
+        $this->middleware('permission:editar-materias');
+        $this->middleware('permission:borrar-materias');
+    }
     public function index(Request $request)
     {
         $search = $request->input('search'); // Obtén el valor del campo de búsqueda

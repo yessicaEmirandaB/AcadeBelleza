@@ -11,9 +11,13 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class MaestrosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    function __construct()
+    {
+        $this->middleware('permission:ver-maestros');
+        $this->middleware('permission:crear-maestros');
+        $this->middleware('permission:editar-maestros');
+        $this->middleware('permission:borrar-maestros');
+    }
     public function index(Request $request)
     {
         $search = $request->input('search'); // Obtén el valor del campo de búsqueda

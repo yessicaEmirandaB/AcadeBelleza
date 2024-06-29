@@ -13,9 +13,13 @@ use Illuminate\Support\Arr;
 
 class UsuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    function __construct()
+    {
+        $this->middleware('permission:ver-usuarios');
+        $this->middleware('permission:crear-usuarios');
+        $this->middleware('permission:editar-usuarios');
+        $this->middleware('permission:borrar-usuarios');
+    }
     public function index()
     {
         $usuarios=user::paginate(5);
@@ -54,7 +58,7 @@ class UsuarioController extends Controller
         $user->assignRole($request->input('roles'));
 
         return redirect()->route('usuarios.index');
-        
+
     }
 
     /**
@@ -100,7 +104,7 @@ class UsuarioController extends Controller
             $user = User::find($id);
             $user->update($input);
             DB::table('model_has_roles')->where('model_id',$id)->delete();
-            
+
             $user->assignRole($request->input('roles'));
             return redirect()->route('usuarios.index');
     }

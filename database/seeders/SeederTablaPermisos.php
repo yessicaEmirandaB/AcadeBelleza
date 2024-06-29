@@ -9,18 +9,28 @@ use Spatie\Permission\Models\Permission;
 
 class SeederTablaPermisos extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $permisos = [
-            //tabla roles
 
+            // permisos para modulos
+            'ver-mod-inscripcion',
+            'ver-mod-parametro',
+            'ver-mod-admistracion',
+            'ver-mod-pago',
+            'ver-mod-reporte',
+            'ver-mod-home',
+
+            //tabla roles
             'ver-rol',
             'crear-rol',
             'editar-rol',
             'borrar-rol',
+            //tabla permisos
+            'ver-permisos',
+            'crear-permisos',
+            'editar-permisos',
+            'borrar-permisos',
             //tabla alumnos
             'ver-alumnos',
             'crear-alumnos',
@@ -52,10 +62,10 @@ class SeederTablaPermisos extends Seeder
             'editar-horarios',
             'borrar-horarios',
             //tabla detalle__curso__maestros
-            'ver-detalle__curso__maestros',
-            'crear-detalle__curso__maestros',
-            'editar-detalle__curso__maestros',
-            'borrar-detalle__curso__maestros',
+            'ver-detalle__curso_maestros',
+            'crear-detalle_curso_maestros',
+            'editar-detalle_curso_maestros',
+            'borrar-detalle_curso_maestros',
              //tabla duracioncursos
              'ver-duracioncursos',
              'crear-duracioncursos',

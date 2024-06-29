@@ -9,9 +9,13 @@ use Illuminate\Http\Request;
 
 class DetalleHorarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    function __construct()
+    {
+        $this->middleware('permission:ver-ver-usuarios');
+        $this->middleware('permission:crear-ver-usuarios');
+        $this->middleware('permission:editar-ver-usuarios');
+        $this->middleware('permission:borrar-ver-usuarios');
+    }
     public function index()
     {
         //
@@ -31,7 +35,7 @@ class DetalleHorarioController extends Controller
         $aula=Aulas::all();
         $materias=Materias::all();
         return view('Horario.create',compact('aula','materias'));
-        
+
     }
 
     /**

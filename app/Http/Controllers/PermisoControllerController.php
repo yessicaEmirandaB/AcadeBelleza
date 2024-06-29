@@ -8,12 +8,18 @@ use Spatie\Permission\Contracts\Permission;
 
 class PermisoControllerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    function __construct()
+    {
+        $this->middleware('permission:ver-permisos');
+        $this->middleware('permission:crear-permisos');
+        $this->middleware('permission:editar-permisos');
+        $this->middleware('permission:borrar-permisos');
+    }
+
     public function index()
     {
-   
+
         return view('sistema.user.permisos', compact('permisos'));
     }
 

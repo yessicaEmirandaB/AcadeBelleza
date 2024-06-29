@@ -7,12 +7,16 @@ use Illuminate\Http\Request;
 
 class AulasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    function __construct()
+    {
+        $this->middleware('permission:ver-aulas');
+        $this->middleware('permission:crear-aulas');
+        $this->middleware('permission:editar-aulas');
+        $this->middleware('permission:borrar-aulas');
+    }
     public function index(Request $request)
     {
-        $search = $request->input('search'); 
+        $search = $request->input('search');
         $aula = Aulas::orderBy('id', 'ASC');
         if ($search) {
             $aula->where(function ($query) use ($search) {
@@ -21,7 +25,7 @@ class AulasController extends Controller
                     ->orWhere('Capacidad', 'like', '%' . $search . '%');
             });
         }
-        $aula = $aula->get(); 
+        $aula = $aula->get();
         return view('Aula.index', compact('aula'));
     }
 
@@ -88,7 +92,7 @@ class AulasController extends Controller
          $mensaje=[
             'required'=>'El :attribute es requerido',
         ];
-        
+
         $aulas= Aulas::find($id);
         $aulas->NumAula =$request->input('NumAula');
         $aulas->Capacidad =$request->input('Capacidad');
@@ -103,7 +107,7 @@ class AulasController extends Controller
     {
         //
         Aulas::destroy($id);
-        
+
         return redirect('Aula')->with('mensaje','El Aula fue borrado correctamente');
     }
 }

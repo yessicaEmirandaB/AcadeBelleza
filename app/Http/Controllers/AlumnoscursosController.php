@@ -11,17 +11,13 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class AlumnoscursosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    /* public function index(Request $request)
+    function __construct()
     {
-        $detalles = Alumnos::join('alumnoscursos', 'alumnos.id', '=', 'alumnoscursos.Alumnos_id')
-            ->join('cursos', 'cursos.id', '=', 'alumnoscursos.cursos_id')
-            ->select('alumnos.*', 'cursos.*', 'alumnoscursos.*')->get();
-        // dd($detalles);
-        return view('AlumnoCurso.index', compact('detalles'));
-    } */
+        $this->middleware('permission:ver-ver-usuarios');
+        $this->middleware('permission:crear-ver-usuarios');
+        $this->middleware('permission:editar-ver-usuarios');
+        $this->middleware('permission:borrar-ver-usuarios');
+    }
     public function index(Request $request)
     {
         $search = $request->input('search'); // Obtén el valor del campo de búsqueda

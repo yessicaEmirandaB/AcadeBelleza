@@ -9,12 +9,16 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class CursosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    function __construct()
+    {
+        $this->middleware('permission:ver-cursos');
+        $this->middleware('permission:crear-cursos');
+        $this->middleware('permission:editar-cursos');
+        $this->middleware('permission:borrar-cursos');
+    }
     public function index(Request $request)
     {
-        $search = $request->input('search'); 
+        $search = $request->input('search');
         $curso = cursos::orderBy('id', 'ASC');
         if ($search) {
             $curso->where(function ($query) use ($search) {
@@ -22,7 +26,7 @@ class CursosController extends Controller
                     ->orWhere('nombrecurso', 'like', '%' . $search . '%');
             });
         }
-        $curso = $curso->get(); 
+        $curso = $curso->get();
         return view('Curso.index', compact('curso'));
     }
     public function pdf(Request $request)
@@ -36,7 +40,7 @@ class CursosController extends Controller
                     ->orWhere('nombrecurso', 'like', '%' . $search . '%');
             });
         }
-        $curso = $curso->get(); 
+        $curso = $curso->get();
         $pdf = PDF::loadView('Curso.pdf', compact('curso'));
         return $pdf->stream('Curso.pdf');
     }

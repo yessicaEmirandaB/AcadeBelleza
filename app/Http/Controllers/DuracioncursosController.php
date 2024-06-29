@@ -9,9 +9,13 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class DuracioncursosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    function __construct()
+    {
+        $this->middleware('permission:ver-ver-usuarios');
+        $this->middleware('permission:crear-ver-usuarios');
+        $this->middleware('permission:editar-ver-usuarios');
+        $this->middleware('permission:borrar-ver-usuarios');
+    }
     public function index(Request $request)
     {
         $search = $request->input('search');
@@ -25,7 +29,7 @@ class DuracioncursosController extends Controller
                     $query->where('nombrecurso', 'like', '%' . $search . '%');
                 });
             })
-            ->paginate(3); 
+            ->paginate(3);
         return view('DuracionCurso.index', compact('Duracioncurso'));
     }
     public function pdf(Request $request)
@@ -47,7 +51,7 @@ class DuracioncursosController extends Controller
         return $pdf->stream();
         // return $pdf->download('alumnos_cursos.pdf'); // Para descargar directamente
     }
-    
+
     public function create()
     {
         return view('DuracionCurso.create', ['cursos' => cursos::all()]);
