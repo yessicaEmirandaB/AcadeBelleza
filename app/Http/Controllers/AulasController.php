@@ -9,10 +9,10 @@ class AulasController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:ver-aulas');
-        $this->middleware('permission:crear-aulas');
-        $this->middleware('permission:editar-aulas');
-        $this->middleware('permission:borrar-aulas');
+        $this->middleware('permission:ver-aulas', ['only' => ['index', 'show']]);
+        $this->middleware('permission:crear-aulas', ['only' => ['create', 'store']]);
+        $this->middleware('permission:editar-aulas', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:borrar-aulas', ['only' => ['destroy']]);
     }
     public function index(Request $request)
     {

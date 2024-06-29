@@ -15,6 +15,7 @@ use App\Http\Controllers\BienvenidosController;
 //Agregamos los controladores para roles y permisos
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\PermisoControllerController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,6 +35,7 @@ return view('Plantilla.Menu');
 Route::get('Alumno/pdf',[AlumnosController::class, 'pdf'] )->name('Alumno.pdf');
 Route::group(['middleware'=> ['auth']],function(){
     Route::resource('roles',RolController::class);
+    Route::resource('Permisos',PermisoControllerController::class);
     Route::resource('usuarios',UsuarioController::class);
     Route::resource('Alumno', AlumnosController::class);
 });

@@ -140,8 +140,8 @@
                     </a>
                     <ul class="collapse list-unstyled" id="homeSubmenuAdministracion">
                         @can('ver-permisos')
-                        <li class="{{'usuarios'==Request::is('usuarios*')?'active':''}}">
-                            <a href="{{ route('usuarios.index')}}">
+                        <li class="{{'permisos'==Request::is('permisos*')?'active':''}}">
+                            <a href="{{ route('Permisos.index')}}">
                                 <i class="fa fa-users"></i>
                                 <b>Permisos</b>
                             </a>
@@ -152,6 +152,14 @@
                             <a href="{{ route('roles.index')}}">
                                 <i class="fa fa-users"></i>
                                 <b>Roles</b>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('ver-usuarios')
+                        <li class="{{'usuarios'==Request::is('usuarios*')?'active':''}}">
+                            <a href="{{ route('usuarios.index')}}">
+                                <i class="fa fa-users"></i>
+                                <b>Usuarios</b>
                             </a>
                         </li>
                         @endcan
